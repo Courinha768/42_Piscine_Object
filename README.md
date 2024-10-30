@@ -1,8 +1,12 @@
 # 42 PiscineObject
 
+[Subject.pdf](en.subject.pdf)
+
 ## Module00 - Encapsulation
 
 This module is meant to intruduce us to the concept of encapsulation
+
+[Subject.pdf](subjects/en.subject00.pdf)
 
 ### Exercice 00 : Divide and conquer
 
