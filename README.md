@@ -15,7 +15,7 @@ make
 This will compile the Bank class aswell as a few test, to run it, run
 
 ```bash
-./
+./DivideAndRule
 ```
 
 ### Exercice 01 : I don't know what i'm doing!
