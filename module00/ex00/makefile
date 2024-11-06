@@ -13,12 +13,13 @@ $(NAME):		$(OBJS)
 
 clean:
 				@rm -rf $(OBJS)
-				@echo "\e[1mObject files deleted\033[0m"
 
 fclean:			clean
 				@rm -rf $(NAME)
-				@echo "\e[1mExecutable files deleted\033[0m"
 
 re:				fclean $(NAME)
+
+run:			re
+				@./DivideAndRule
 
 .PHONY:			all clean fclean re

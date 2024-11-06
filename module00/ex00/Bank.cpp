@@ -32,7 +32,7 @@ int	Bank::addMoney(int accountId, int value)	{
 		it->second._value += value;
 		return it->second._value;
 	}
-	return -1;
+	throw Bank::NotAnAccount();
 }
 
 int	Bank::removeMoney(int accountId, int value)	{
@@ -42,7 +42,7 @@ int	Bank::removeMoney(int accountId, int value)	{
 		it->second._value -= value;
 		return it->second._value;
 	}
-	return -1;
+	throw Bank::NotAnAccount();
 }
 
 int	Bank::giveLoan(int accountId, int value)	{
@@ -57,5 +57,15 @@ int	Bank::giveLoan(int accountId, int value)	{
 		return it->second._value;
 	}
 
-	return -1;
+	throw Bank::NotAnAccount();
+}
+
+Bank::Account Bank::operator[](int i)	{
+	if (_clientAccounts.find(i) == _clientAccounts.end())
+		throw Bank::NotAnAccount();
+	return (_clientAccounts[i]);
+}
+
+int	Bank::Account::getValue() const {
+	return (_value);
 }

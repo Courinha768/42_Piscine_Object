@@ -13,6 +13,8 @@ struct Bank	{
 			Account(int id): _id(id), _value(0) {}
 			Account(int id, int value): _id(id), _value(value) {}
 			~Account() {};
+
+			int	getValue() const;
 		};
 
 
@@ -36,11 +38,20 @@ struct Bank	{
 		int	removeMoney(int accountId, int value);
 		int	giveLoan(int accountId, int value);
 
+		Account	operator[](int i);
 		class NotEnoughFunds: public std::exception
 		{
 			public:
 				virtual const char* what() const throw()	{
 					return ("The bank doens't have anough funds to perform this action");};
+		};
+
+		class NotAnAccount: public std::exception
+		{
+			public:
+				virtual const char* what() const throw()	{
+					//todo: this message better
+					return ("The bank doens't have that account");};
 		};
 
 		friend std::ostream& operator << (std::ostream& os, const Bank& bank)	{

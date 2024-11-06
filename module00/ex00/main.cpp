@@ -64,4 +64,13 @@ int	main(void)	{
 		std::cout << bank << std::endl;
 
 	}
+	std::cout << BIBLUE << "#5: Accessing an account with [] operator:     " << RESET << std::endl << std::endl;
+	{
+		Bank bank(1000);
+		int	accountId = bank.createAccount(5000);
+		std::cout << bank << std::endl;
+		
+		std::cout << GREEN << "Getting the value of this account:" << RESET << std::endl;
+		std::cout << bank[accountId].getValue() << std::endl;
+	}
 }
