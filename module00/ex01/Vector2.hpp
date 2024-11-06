@@ -5,14 +5,14 @@
 
 struct Vector2	{
 
-		float x;
-		float y;
+	float x;
+	float y;
 
-		Vector2(): x(0), y(0) {}
-		Vector2(float x, float y): x(x), y(y) {}
-		~Vector2() {}
+	Vector2(): x(0), y(0) {}
+	Vector2(float x, float y): x(x), y(y) {}
+	~Vector2() {}
 
-		bool operator==(const Vector2 &vector2) const;
+	bool operator==(const Vector2 &vector2) const;
 
 };
 
