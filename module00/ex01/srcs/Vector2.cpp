@@ -8,7 +8,7 @@ bool Vector2::operator==(const Vector2 &vector2) const	{
 
 std::ostream& operator << (std::ostream& os, const Vector2& vector2)	{
 
-	std::cout << "(" << vector2.x << ", " << vector2.y << ")";
+	os << "(" << vector2.x << ", " << vector2.y << ")";
 	return (os);
 
 }
