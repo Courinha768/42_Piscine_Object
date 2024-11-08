@@ -47,6 +47,13 @@ class Graph	{
 
 			png_options();
 			~png_options();
+
+			class NotValid: public std::exception
+			{
+				public:
+					virtual const char* what() const throw()	{
+						return ("png options not valid");};
+			};
 		};
 
 		Graph();
@@ -97,7 +104,7 @@ class Graph	{
  
 std::ostream& operator << (std::ostream& os, const Graph& graph);
 
-void	writeToPng(const Graph &graph, const std::string &filename, const Graph::png_options &options);
-void	writeToPng(const Graph &graph, const std::string &filename);
+void	writeToPng(const Graph &graph, std::string &filename, const Graph::png_options &options);
+void	writeToPng(const Graph &graph, std::string &filename);
 
 #endif

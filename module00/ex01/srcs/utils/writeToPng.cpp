@@ -1,6 +1,6 @@
 #include "../../includes/Graph.hpp"
 
-void	writeToPng(const Graph &graph, const std::string &filename)	{
+void	writeToPng(const Graph &graph, std::string &filename)	{
 	writeToPng(graph, filename, Graph::png_options());
 }
 
@@ -92,7 +92,6 @@ static	void	_drawAxis(cairo_t *cr, const Graph::png_options &options)	{
 static	void	_drawGrid(cairo_t *cr, const Graph::png_options &options)	{
 	_set_source_rgb(cr, options.c_grid);
 
-
 	cairo_set_line_width(cr, ceil(options.width / 1000) * GRID_WIDTH);
 	for (int i = -9; i < 10; i++)	{
 		_drawLine(cr, i * options.width / 20 + options.height / 2, 0, i * options.width / 20 + options.height / 2, options.height);
@@ -124,7 +123,6 @@ static	void	_drawGridNumbers(cairo_t *cr, const Graph::png_options &options, con
 
 	cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
 	
-	//!Check this font size
 	cairo_set_font_size(cr, 15 * options.height / 1000);
 
 	for (int i = -9; i < 10; i++)	{
@@ -197,11 +195,20 @@ static	void	_drawLines(cairo_t *cr, const Graph &graph, const Graph::png_options
 	}
 }
 
-void	writeToPng(const Graph &graph, const std::string &filename, const Graph::png_options &options)	{
+void	writeToPng(const Graph &graph, std::string &filename, const Graph::png_options &options)	{
 
-	//todo: if it doesnt have the extension add it
+	int dotPos = filename.find_last_of('.');
 
-	//todo: check settings, height and width divided by 1000 cant be smaller than AXIS_WIDTH or GRID_WIDTH
+	if (dotPos == std::string::npos)
+		filename = filename + ".png";
+	else
+		filename = filename.substr(0, dotPos) + ".png";
+
+	if (options.height / 1000 < AXIS_WIDTH
+		|| options.height / 1000 < GRID_WIDTH
+		|| options.width / 1000 < AXIS_WIDTH
+		|| options.width / 1000 < GRID_WIDTH)
+		throw Graph::png_options::NotValid();
 
 	std::pair<int, int>	scales = _calculateScale(graph);
 
