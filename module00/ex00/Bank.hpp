@@ -50,7 +50,6 @@ struct Bank	{
 		{
 			public:
 				virtual const char* what() const throw()	{
-					//todo: this message better
 					return ("The bank doens't have that account");};
 		};
 

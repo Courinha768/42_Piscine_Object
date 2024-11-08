@@ -15,11 +15,11 @@ struct Line	{
 	Line(const Line &copy);
 	~Line();
 
-	Line& operator=(const Line &assign);
+	Line&	operator=(const Line &assign);
 
-	bool operator==(const Vector2 &vector2) const;
+	bool	operator==(const Line &line) const;
 };
 
-std::ostream& operator << (std::ostream& os, const Vector2& vector2);
+std::ostream& operator << (std::ostream& os, const Line& line);
 
 #endif

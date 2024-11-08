@@ -1,6 +1,6 @@
 NAME			= Vector
 
-SRCS			= main.cpp Graph.cpp Vector2.cpp
+SRCS			= main.cpp srcs/Graph.cpp srcs/Vector2.cpp srcs/Line.cpp srcs/utils/writeToPng.cpp srcs/utils/writeToOs.cpp
 OBJS			= $(SRCS:.cpp=.o)
 
 CXX				= @c++

@@ -3,44 +3,71 @@
 
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <cairo/cairo.h>
-#include <string>
-#include <sstream>
 #include <math.h>
+#include <sstream>
 
 #include "Vector2.hpp"
+#include "Line.hpp"
 
-// For anyone that is looking at this
-// i believe the best solution would be to create a Line struct
-// It would make more sense for things such as "LinesAreEqual", it could just be the operator ==
-// And it would look a lottttt better
-// Besides, I dont want to belive making a vector of type vector is, in any way, a good practice
-// I'm just doing it like this for "fun" I guess
+#define C_WHITE 100
+#define C_BLACK 101
+#define C_GREY 102
+#define C_RED 103
+#define C_GREEN 104
+#define C_BLUE 105
+
+#define	AXIS_WIDTH 2
+#define	GRID_WIDTH 1
+
 class Graph	{
 
-	std::vector<Vector2>				_points;
-	std::vector<std::vector<Vector2> >	_lines;
-	
-	bool					linesAreEqual(std::vector<Vector2> vector1, std::vector<Vector2> vector2);
+	std::vector<Vector2>	_points;
+	std::vector<Line>		_lines;
+
+	bool	_exists(const Vector2 &point);
+	bool	_exists(const Line &line);
 
 	public:
 
-		Graph() {}
-		~Graph() {}
+		struct png_options	{
 
-		void	addPoint(Vector2 newVector2);
-		void	addPoint(float x, float y);
-		void	removePoint(Vector2 vector2);
-		void	removePoint(float x, float y);
+			int	height;
+			int	width;
 
-		void	addLine(std::vector<Vector2> newLine);
-		void	removeLine(std::vector<Vector2> Line);
+			bool	grid;
+			bool	axis;
+			bool	numbers;
 
-		std::vector<Vector2>				getPoints() const {return _points;}
-		std::vector<std::vector<Vector2> >	getLines() const {return _lines;}
+			int	c_points;
+			int	c_lines;
+			int	c_axis;
+			int c_grid;
+			int c_background;
 
-		void	saveToPNG(const std::string &filename);
+			png_options();
+			~png_options();
+		};
+
+		Graph();
+		Graph(const Graph &copy);
+		~Graph();
+
+		Graph&	operator=(const Graph &assign);
+		bool	operator==(const Graph &graph) const;
+
+		void	add(const Vector2 &new_point);
+		void	add(float x, float y);
+		void	add(const Line &new_line);
+		void	add(float x1, float y1, float x2, float y2);
+
+		void	remove(const Vector2 &new_point);
+		void	remove(float x, float y);
+		void	remove(const Line &new_line);
+		void	remove(float x1, float y1, float x2, float y2);
+
+		std::vector<Vector2>	getPoints() const;
+		std::vector<Line>		getLines() const;
 
 		class PointAlreadyInGraph: public std::exception
 		{
@@ -66,10 +93,11 @@ class Graph	{
 				virtual const char* what() const throw()	{
 					return ("Line is not in the Graph");};
 		};
-
 };
  
 std::ostream& operator << (std::ostream& os, const Graph& graph);
 
+void	writeToPng(const Graph &graph, const std::string &filename, const Graph::png_options &options);
+void	writeToPng(const Graph &graph, const std::string &filename);
 
 #endif
